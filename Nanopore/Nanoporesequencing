@@ -1,1 +1,5 @@
 
+python Nanopore_CovidQC_LMO_Transfer_Porecov_ServerNameswq.py \
+-FastqPassFolder fastq_pass/ \
+-SampleSheet SampleSheet.csv -OutputName SET_56_190122 \
+-ServerName host@10.117.173.20:/data/TestRun/
