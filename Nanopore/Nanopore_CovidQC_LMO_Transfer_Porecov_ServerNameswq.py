@@ -9,7 +9,7 @@ import sys
 
 print("\n\nif conda environment /data/anaconda3/envs/porecov not activated, plase activate......\n\n")
 
-parser=argparse.ArgumentParser(description="It is for QC and transfering covid data(Passed fastq) to LMO Server")
+parser=argparse.ArgumentParser(description="It is for QC and transfering covid data(Passed fastq) to other Server")
 parser.add_argument('-FastqPassFolder','--FastqPassFolder', help="Full path of fastq_pass should end with /", required=True)
 parser.add_argument('-SampleSheet','--SampleSheet', help="Sample sheet; should have two columns namely Sample_ID and ONT_Barcode_ID \
                     file should be separated by coma", required=True)
@@ -139,7 +139,7 @@ os.system("du -hs " +FolderName+"/*" )
 #os.system("tree -d --du -hs " +FolderName+"/" )
 
 
-LMO=input("Needs to transfere data to LMO(Print Yes or No: ")
+LMO=input("Needs to transfere data to the server(Print Yes or No: ")
 LMO=LMO.upper()
 
 ##Checking samples present in the sample sheet and Passed fastq folders are same or not
@@ -215,7 +215,7 @@ if Analysis=="YES" :
         cmd="nextflow run replikation/poreCov  --fastq_pass " + FolderName + " \
             --cores 2 --samples samplesheet.csv --primerV V1200 --output poreCov_results \
             -profile local,docker -r 0.11.0  --rapid --update \
-            --databases /data/Software_Resources/covid_refseq/Porecov/databases/ --cachedir /data/Software_Resources/covid_refseq/Porecov/singularity_images/ "
+            --databases /data/Software_Resources/covid_refseq/Porecov/databases/  --krakendb /data/Software_Resources/covid_refseq/Porecov/databases/kraken2/kraken.tar.gz --cachedir /data/Software_Resources/covid_refseq/Porecov/singularity_images/ "
         os.system(cmd)
 else:
         print("Analysis not performing")
